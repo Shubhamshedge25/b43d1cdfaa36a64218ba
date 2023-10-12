@@ -1,10 +1,13 @@
 package com.example.builder_task;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +23,8 @@ public class MainActivityJava extends AppCompatActivity  {
     RecyclerView recyclerView;
     ArrayList<UserListModel> modelRecyclerArrayList;
     MyViewModel myViewModel;
+
+    int page = 0;
 
 
     @Override
@@ -41,12 +46,20 @@ public class MainActivityJava extends AppCompatActivity  {
                 }
             }
         });
+
+        // adding on scroll change listener method for our nested scroll view.
+        findViewById(R.id.recycler_view).setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+
+            }
+        });
     }
 
 
     private void initRecycler() {
         adapter = new UserListAdapter(modelRecyclerArrayList, MainActivityJava.this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(adapter);
 
     }
